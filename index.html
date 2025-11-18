@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stanislav Belkin – QA & Test Automation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Personal site of Stanislav Belkin – QA engineer, test automation enthusiast and project manager."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #050816;
+      --card-bg: #0b1020;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.12);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+      --transition: 200ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 52%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: 960px;
+      width: 100%;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #111827, #020617 52%, #020617 100%);
+      border-radius: 28px;
+      padding: 28px 26px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.08), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(236, 72, 153, 0.08), transparent 55%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 780px) {
+      .card {
+        padding: 22px 20px 24px;
+      }
+
+      .card-inner {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #16a34a);
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.85);
+    }
+
+    .name {
+      font-size: clamp(32px, 4vw, 38px);
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+
+    .role-line {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .role-line strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .summary {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 18px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: #d1d5db;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      white-space: nowrap;
+    }
+
+    .tag--accent {
+      border-color: rgba(59, 130, 246, 0.9);
+      background: radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.35), rgba(15, 23, 42, 0.9));
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      transition: transform var(--transition), box-shadow var(--transition),
+        border-color var(--transition), background var(--transition);
+    }
+
+    .btn span {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .btn-primary {
+      border-color: rgba(59, 130, 246, 0.9);
+      background: radial-gradient(circle at 0 0, #2563eb, #1d4ed8);
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.55);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.8);
+      border-color: rgba(148, 163, 184, 0.85);
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .btn-primary:hover {
+      background: radial-gradient(circle at 0 0, #1d4ed8, #1d4ed8);
+      border-color: rgba(96, 165, 250, 1);
+    }
+
+    .muted-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .col-right {
+      border-radius: 22px;
+      background: radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.24), rgba(15, 23, 42, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 16px 16px 14px;
+      backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .col-right::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 120% 0, rgba(236, 72, 153, 0.2), transparent 50%),
+        linear-gradient(to bottom right, rgba(15, 23, 42, 0), rgba(15, 23, 42, 1) 72%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #e5e7eb;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-title span {
+      font-weight: 600;
+    }
+
+    .chip {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.85);
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .pill-card {
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 10px 10px 9px;
+      font-size: 12px;
+      line-height: 1.4;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .pill-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .pill-main {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .pill-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .tools-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      margin-top: 4px;
+    }
+
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tool {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: #d1d5db;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 520px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="card" aria-label="Business card of QA engineer Stanislav Belkin">
+      <div class="card-inner">
+        <!-- Left column: intro -->
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            <span>Available for remote projects</span>
+          </div>
+
+          <h1 class="name">Stanislav&nbsp;Belkin</h1>
+
+          <p class="role-line">
+            <strong>QA Engineer &amp; Test Automation</strong> with a project management and industrial automation background.
+          </p>
+
+          <p class="summary">
+            I help teams ship reliable products by combining hands-on testing, automation, and clear communication
+            between business and engineering. Strong experience in complex technical domains and distributed teams.
+          </p>
+
+          <div class="tags">
+            <span class="tag tag--accent">Manual &amp; Automation QA</span>
+            <span class="tag">API &amp; Web Testing</span>
+            <span class="tag">Project / Product Mindset</span>
+            <span class="tag">Remote-first collaboration</span>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="mailto:your@email.here" aria-label="Email Stanislav">
+              <span>✉️ Contact me</span>
+            </a>
+            <a class="btn" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noreferrer">
+              <span>LinkedIn</span>
+            </a>
+            <a class="btn" href="https://github.com/your-github" target="_blank" rel="noreferrer">
+              <span>GitHub / Portfolio</span>
+            </a>
+          </div>
+
+          <p class="muted-note">
+            Prefer async communication in English or Russian. Open to long-term cooperation and consulting.
+          </p>
+        </div>
+
+        <!-- Right column: snapshot -->
+        <aside class="col-right">
+          <div class="panel-inner">
+            <div class="panel-title">
+              <span>Snapshot</span>
+              <span class="chip">QA · Automation · Projects</span>
+            </div>
+
+            <div class="grid" aria-label="Key focus areas">
+              <div class="pill-card">
+                <div class="pill-label">Focus</div>
+                <div class="pill-main">Functional, regression &amp; API testing</div>
+                <div class="pill-sub">Web apps · backends · integrations</div>
+              </div>
+              <div class="pill-card">
+                <div class="pill-label">Automation</div>
+                <div class="pill-main">UI / API test automation</div>
+                <div class="pill-sub">Building practical, maintainable test suites</div>
+              </div>
+              <div class="pill-card">
+                <div class="pill-label">Background</div>
+                <div class="pill-main">Industrial &amp; process automation</div>
+                <div class="pill-sub">Complex systems · stakeholder management</div>
+              </div>
+              <div class="pill-card">
+                <div class="pill-label">Collaboration</div>
+                <div class="pill-main">Bridging business &amp; engineering</div>
+                <div class="pill-sub">Clear documentation · honest feedback</div>
+              </div>
+            </div>
+
+            <p class="tools-title">Selected tools &amp; stack</p>
+            <div class="tools-list">
+              <span class="tool">Postman / API testing</span>
+              <span class="tool">Python / JavaScript basics</span>
+              <span class="tool">Selenium / Playwright (learning)</span>
+              <span class="tool">Jira / YouTrack / Trello</span>
+              <span class="tool">Git · CI/CD (concepts)</span>
+              <span class="tool">Test design techniques</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
